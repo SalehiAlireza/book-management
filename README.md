@@ -37,6 +37,10 @@ php artisan key:generate
 
 php artisan migrate:fresh --seed
 
+##آدرس زیر برای مشاهده swagger و تست api ها :
+##http://localhost:8000/docs/api
+
+
 داده‌های تستی شامل:
 ۵ دسته‌بندی
 ۲۰ کتاب
