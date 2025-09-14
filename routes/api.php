@@ -24,5 +24,6 @@ Route::group(['prefix' => '/api'], function () {
     Route::apiResource('loans', App\Http\Controllers\api\v1\LoanController::class);
     Route::apiResource('categories', App\Http\Controllers\api\v1\CategoryController::class);
     Route::apiResource('users', App\Http\Controllers\api\v1\UserController::class);
+    Route::get('reports', [App\Http\Controllers\api\v1\ReportController::class, 'reports']);
 });
 

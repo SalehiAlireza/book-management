@@ -41,4 +41,9 @@ class Loan extends Model
         return $this->belongsTo(Book::class);
     }
 
+    public function scopeLate($query)
+    {
+        return $query->where('status', 'late');
+    }
+
 }
