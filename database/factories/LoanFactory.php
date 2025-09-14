@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories\Loan;
-
+namespace Database\Factories;
+use App\Models\User;
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
