@@ -10,12 +10,13 @@ use App\Models\User;
 
 use App\Http\Requests\StoreLoanRequest;
 use App\Http\Requests\UpdateLoanRequest;
+use App\Http\Resources\LoanResource;
 
 class LoanController extends Controller
 {
     public function index()
     {
-        return Loan::with(['user', 'book'])->get();
+        return LoanResource::collection(Loan::with(['user', 'book'])->get());
     }
 
     public function store(StoreLoanRequest $request)
@@ -43,7 +44,7 @@ class LoanController extends Controller
 
     public function show(Loan $loan)
     {
-        return $loan->load(['user', 'book']);
+        return new LoanResource($loan->load(['user', 'book']));
     }
 
     public function update(UpdateLoanRequest $request, Loan $loan)
