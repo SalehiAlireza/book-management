@@ -8,59 +8,54 @@ use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index() 
     {
-        //
+        return Book::with('category')->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request) 
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'author' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'total_copies' => 'required|integer|min:1',
+        ]);
+
+        $data['available_copies'] = $data['total_copies'];
+
+        $book = Book::create($data);
+        return response()->json($book, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBookRequest $request)
+    public function show(Book $book) 
     {
-        //
+        return $book->load('category');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Book $book)
+    public function update(Request $request, Book $book) 
     {
-        //
+        $data = $request->validate([
+            'title' => 'sometimes|string',
+            'author' => 'sometimes|string',
+            'category_id' => 'sometimes|exists:categories,id',
+            'total_copies' => 'sometimes|integer|min:1',
+        ]);
+
+        if (isset($data['total_copies'])) {
+            $data['available_copies'] = $data['total_copies'];
+        }
+
+        $book->update($data);
+        return response()->json($book);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
+    public function destroy(Book $book) 
     {
-        //
+        $book->delete();
+        return response()->json(null, 204);
     }
+    
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBookRequest $request, Book $book)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Book $book)
-    {
-        //
-    }
 }
