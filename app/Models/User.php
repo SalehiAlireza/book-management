@@ -9,6 +9,12 @@ class User extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
     public function loans() 
     {
         return $this->hasMany(Loan::class);

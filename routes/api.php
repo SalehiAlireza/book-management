@@ -22,5 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => '/api'], function () {
     Route::apiResource('books', App\Http\Controllers\api\v1\BookController::class);
     Route::apiResource('loans', App\Http\Controllers\api\v1\LoanController::class);
+    Route::apiResource('categories', App\Http\Controllers\api\v1\CategoryController::class);
 });
 
