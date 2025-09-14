@@ -16,8 +16,17 @@ class LoanFactory extends Factory
      */
     public function definition(): array
     {
+        $loanDate = $this->faker->dateTimeBetween('-1 month', 'now');
+        $isReturned = $this->faker->boolean(50);
+
         return [
-            //
+            'user_id'    => User::inRandomOrder()->first()->id ?? User::factory(),
+            'book_id'    => Book::inRandomOrder()->first()->id ?? Book::factory(),
+            'loan_date'  => $loanDate,
+            'return_date'=> $isReturned ? $this->faker->dateTimeBetween($loanDate, 'now') : null,
+            'status'     => $isReturned
+                                ? $this->faker->randomElement(['returned', 'late'])
+                                : 'borrowed',
         ];
     }
 }
