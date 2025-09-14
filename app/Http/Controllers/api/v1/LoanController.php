@@ -5,6 +5,9 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 
 use App\Models\Loan;
+use App\Models\Book;
+use App\Models\User;
+
 use App\Http\Requests\StoreLoanRequest;
 use App\Http\Requests\UpdateLoanRequest;
 
@@ -18,6 +21,7 @@ class LoanController extends Controller
     public function store(StoreLoanRequest $request)
     {
         $data = $request->all();
+        $data['loan_date'] = now(); 
 
         $book = Book::findOrFail($data['book_id']);
 
