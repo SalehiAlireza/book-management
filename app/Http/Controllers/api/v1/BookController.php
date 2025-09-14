@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Models\Book\Book;
+use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 
@@ -15,14 +15,9 @@ class BookController extends Controller
         return Book::with('category')->get();
     }
 
-    public function store(Request $request) 
+    public function store(StoreBookRequest $request) 
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'author' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'total_copies' => 'required|integer|min:1',
-        ]);
+        $data = $request->all();
 
         $data['available_copies'] = $data['total_copies'];
 
@@ -35,14 +30,9 @@ class BookController extends Controller
         return $book->load('category');
     }
 
-    public function update(Request $request, Book $book) 
+    public function update(UpdateBookRequest $request, Book $book) 
     {
-        $data = $request->validate([
-            'title' => 'sometimes|string',
-            'author' => 'sometimes|string',
-            'category_id' => 'sometimes|exists:categories,id',
-            'total_copies' => 'sometimes|integer|min:1',
-        ]);
+        $data = $request->all();
 
         if (isset($data['total_copies'])) {
             $data['available_copies'] = $data['total_copies'];

@@ -22,7 +22,10 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'sometimes|string',
+            'author' => 'sometimes|string',
+            'category_id' => 'sometimes|exists:categories,id',
+            'total_copies' => 'sometimes|integer|min:1',
         ];
     }
 }
