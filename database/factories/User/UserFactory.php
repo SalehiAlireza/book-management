@@ -17,7 +17,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone' => $this->faker->phoneNumber(),
+            'membership_date' => $this->faker->dateTimeBetween('-2 years', 'now'),
+            'password' => bcrypt('password'),
         ];
     }
 }
