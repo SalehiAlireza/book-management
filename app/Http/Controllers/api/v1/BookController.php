@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Http\Resources\BookResource;
 
 class BookController extends Controller
 {
 
     public function index() 
     {
-        return Book::with('category')->get();
+        return BookResource::collection(Book::with('category')->get());
     }
 
     public function store(StoreBookRequest $request) 

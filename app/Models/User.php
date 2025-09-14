@@ -15,6 +15,15 @@ class User extends Model
         'password',
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'membership_date' => 'datetime',
+    ];
+
     public function loans() 
     {
         return $this->hasMany(Loan::class);
